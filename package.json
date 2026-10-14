@@ -1,0 +1,53 @@
+{
+  "name": "@civilization/multi-agent",
+  "version": "0.1.0",
+  "description": "Universal multi-agent base engine with perspective rendering, visibility isolation and pluggable orchestrators",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/civilization-os/multi_agent.git"
+  },
+  "bugs": {
+    "url": "https://github.com/civilization-os/multi_agent/issues"
+  },
+  "homepage": "https://github.com/civilization-os/multi_agent#readme",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "dependencies": {
+    "@civilization/model-core": "^0.1.0",
+    "nanoid": "^5.0.9",
+    "zod": "^3.24.2",
+    "zod-to-json-schema": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  },
+  "keywords": [
+    "multi-agent",
+    "ai-agents",
+    "group-chat",
+    "murder-mystery",
+    "orchestrator",
+    "llm",
+    "roleplay",
+    "perspective-rendering"
+  ],
+  "author": "civilization-os",
+  "license": "MIT"
+}
