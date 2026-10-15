@@ -22,10 +22,23 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci || npm install
+      - name: Resolve dependencies (with fallback)
+        run: |
+          if ! npm view @civilization/model-core version > /dev/null 2>&1; then
+            echo "Package @civilization/model-core is not yet published on npm registry."
+            echo "Cloning and building @civilization/model-core from GitHub..."
+            git clone --depth 1 https://github.com/civilization-os/model_core.git ../model_core
+            cd ../model_core
+            npm install
+            npm run build
+            cd ../multi_agent
+            node -e "const pkg = require('./package.json'); pkg.dependencies['@civilization/model-core'] = 'file:../model_core'; require('fs').writeFileSync('./package.json', JSON.stringify(pkg, null, 2));"
+            npm install
+          else
+            echo "Found @civilization/model-core on npm registry."
+            npm ci || npm install
+          fi
 
       - name: Type Check & Build
         run: npm run build
